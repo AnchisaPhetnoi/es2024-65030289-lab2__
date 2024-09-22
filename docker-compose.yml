@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  my-express:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - my-mongo
+
+  my-mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  nginx:
+    image: nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/usr/share/nginx/html  # ใช้โฟลเดอร์ปัจจุบัน
+  
+volumes:
+  mongo-data:
+
